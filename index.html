@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📊 全球投资看板</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== 导航栏 ===== -->
+<nav class="navbar">
+  <div class="brand">
+    <span class="icon">📊</span>
+    <span>全球投资看板</span>
+  </div>
+  <div class="meta">
+    <span class="clock" id="clock">--:--:--</span>
+    <span id="trade-status">加载中...</span>
+    <button class="btn-refresh" id="btn-refresh" onclick="refreshAll()">
+      <span class="spinner"></span>
+      🔄 刷新
+    </button>
+  </div>
+</nav>
+
+<!-- ===== 市场状态栏 ===== -->
+<div class="market-status" id="market-status-bar">
+  <!-- JS 动态填充 -->
+  <div class="market-tag"><span class="dot closed"></span> 北京 --</div>
+  <div class="market-tag"><span class="dot closed"></span> 港股 --</div>
+  <div class="market-tag"><span class="dot closed"></span> 美股 --</div>
+  <div class="market-tag"><span class="dot closed"></span> 欧洲 --</div>
+  <div class="market-tag"><span class="dot closed"></span> 日本 --</span></div>
+</div>
+
+<!-- ===== 主容器 ===== -->
+<div class="container">
+
+  <!-- 自选股 -->
+  <div class="section">
+    <div class="watchlist-header">
+      <div class="section-title">⭐ 自选股</div>
+      <button class="btn-add" onclick="showAddModal()">+ 添加</button>
+    </div>
+    <div class="grid-4" id="watchlist-container">
+      <div class="loading-placeholder">暂无自选股，点击添加 →</div>
+    </div>
+  </div>
+
+  <!-- 全球指数 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🌍 全球指数 <span class="badge">LIVE</span></div>
+    </div>
+    <div class="grid-4" id="indices-container">
+      <div class="loading-placeholder">正在加载指数数据<span class="dots"></span></div>
+    </div>
+  </div>
+
+  <!-- A股板块 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">📈 A股板块涨跌</div>
+    </div>
+    <div class="grid-2">
+      <div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--accent-green)">🔥 涨幅 TOP 10</div>
+        <div class="sector-list" id="sector-top">
+          <div class="loading-placeholder">加载中<span class="dots"></span></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--accent-red)">❄️ 跌幅 TOP 10</div>
+        <div class="sector-list" id="sector-bottom">
+          <div class="loading-placeholder">加载中<span class="dots"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 财经新闻 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">📰 财经要闻</div>
+    </div>
+    <div class="grid-3" id="news-container">
+      <div class="loading-placeholder">正在加载新闻<span class="dots"></span></div>
+    </div>
+  </div>
+
+  <!-- 大佬观点 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">👤 大佬观点</div>
+    </div>
+    <div class="grid-2" id="influencers-container">
+      <div class="loading-placeholder">正在加载<span class="dots"></span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== 添加自选股模态框 ===== -->
+<div class="modal-overlay" id="add-modal">
+  <div class="modal">
+    <h3>添加自选股</h3>
+    <div class="input-group">
+      <input type="text" id="stock-code-input" placeholder="输入代码，如 600519 或 AAPL">
+    </div>
+    <p style="font-size:11px;color:var(--text-muted);margin-bottom:12px">
+      A股：6位数字（600519） 港股：5位数字（00700） 美股：代码（AAPL）
+    </p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="hideAddModal()">取消</button>
+      <button class="btn-confirm" onclick="addWatchlistStock()">添加</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
